@@ -46,7 +46,7 @@ Shader "Unlit/NewUnlitShader"
 
                 if(i.uv.x >= 0.4 && i.uv.x <=0.6 || i.uv.y >= 0.4 && i.uv.y <=0.6)
                 {
-                    col = fixed4(0,i.uv.y,0,1);
+                    col = fixed4(0,i.uv.y,i.uv.y,1);
                 }
                 return col;
             }
