@@ -1,8 +1,9 @@
-Shader "Unlit/LineShader"
+Shader "Unlit/GridShader"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        [IntRange] _GridSize ("GridSize", Range(1,20)) = 1
     }
     SubShader
     {
@@ -12,6 +13,7 @@ Shader "Unlit/LineShader"
         Pass
         {
             CGPROGRAM
+          
             #pragma vertex vert
             #pragma fragment frag
 
@@ -31,6 +33,7 @@ Shader "Unlit/LineShader"
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
+            float _GridSize;
 
             v2f vert (appdata v)
             {
@@ -42,12 +45,18 @@ Shader "Unlit/LineShader"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                fixed4 col = tex2D(_MainTex, i.uv);
-
-                if(i.uv.x >= 0.4 && i.uv.x <=0.6 || i.uv.y >= 0.4 && i.uv.y <=0.6)
+                fixed4 col = fixed4(0,0,0,1);
+                float2 scaledUV = i.uv * _GridSize;
+                float2 fractionalUV = frac(scaledUV);
+                if(fractionalUV.x <0.52 && fractionalUV.x > 0.48)
                 {
-                    col = fixed4(0,i.uv.y,i.uv.y,1);
+                    col = fixed4(1,1,1,1); 
                 }
+                if(fractionalUV.y <0.52 && fractionalUV.y > 0.48)
+                {
+                    col = fixed4(1,1,1,1); 
+                }
+                
                 return col;
             }
             ENDCG
