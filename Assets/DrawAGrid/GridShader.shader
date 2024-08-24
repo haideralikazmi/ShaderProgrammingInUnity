@@ -4,6 +4,7 @@ Shader "Unlit/GridShader"
     {
         _MainTex ("Texture", 2D) = "white" {}
         [IntRange] _GridSize ("GridSize", Range(1,20)) = 1
+        _LineWidth ("LineWidth", Range(0,0.2)) = 0.05
     }
     SubShader
     {
@@ -33,7 +34,8 @@ Shader "Unlit/GridShader"
 
             sampler2D _MainTex;
             float4 _MainTex_ST;
-            float _GridSize;
+            int _GridSize;
+            float _LineWidth;
 
             v2f vert (appdata v)
             {
@@ -48,11 +50,11 @@ Shader "Unlit/GridShader"
                 fixed4 col = fixed4(0,0,0,1);
                 float2 scaledUV = i.uv * _GridSize;
                 float2 fractionalUV = frac(scaledUV);
-                if(fractionalUV.x <0.52 && fractionalUV.x > 0.48)
+                if(fractionalUV.x <0.5+_LineWidth && fractionalUV.x > 0.48 -_LineWidth)
                 {
                     col = fixed4(1,1,1,1); 
                 }
-                if(fractionalUV.y <0.52 && fractionalUV.y > 0.48)
+                if(fractionalUV.y <0.5 + _LineWidth && fractionalUV.y > 0.48-_LineWidth)
                 {
                     col = fixed4(1,1,1,1); 
                 }
