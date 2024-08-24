@@ -5,12 +5,16 @@ Shader "Unlit/GridShader"
         _MainTex ("Texture", 2D) = "white" {}
         [IntRange] _GridSize ("GridSize", Range(1,20)) = 1
         _LineWidth ("LineWidth", Range(0,0.2)) = 0.05
+        _Color ("LineColor", Color) = (0.1,0.1,0.1,1)
+        _Opacity("LineOpacity", Range(0,1))= 1.0
     }
     SubShader
     {
-        Tags { "RenderType"="Opaque" }
+        Tags { "Queue"="Transparent" "RenderType" = "Transparent" }
         LOD 100
 
+        ZWrite Off
+        Blend SrcAlpha OneMinusSrcAlpha
         Pass
         {
             CGPROGRAM
@@ -36,6 +40,8 @@ Shader "Unlit/GridShader"
             float4 _MainTex_ST;
             int _GridSize;
             float _LineWidth;
+            fixed4 _Color;
+            float _Opacity;
 
             v2f vert (appdata v)
             {
@@ -52,11 +58,13 @@ Shader "Unlit/GridShader"
                 float2 fractionalUV = frac(scaledUV);
                 if(fractionalUV.x <0.5+_LineWidth && fractionalUV.x > 0.48 -_LineWidth)
                 {
-                    col = fixed4(1,1,1,1); 
+                    col = _Color;
+                    col.a = _Opacity;
                 }
                 if(fractionalUV.y <0.5 + _LineWidth && fractionalUV.y > 0.48-_LineWidth)
                 {
-                    col = fixed4(1,1,1,1); 
+                    col = _Color;
+                    col.a = _Opacity;
                 }
                 
                 return col;
