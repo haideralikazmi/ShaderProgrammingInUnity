@@ -46,10 +46,15 @@ Shader "Unlit/RingShader"
 
             fixed4 frag (v2f i) : SV_Target
             {
-                // sample the texture
-                fixed4 col = tex2D(_MainTex, i.uv);
-                // apply fog
-                UNITY_APPLY_FOG(i.fogCoord, col);
+                fixed4 col = fixed4(0,0,0,1);
+                float2 UV = i.uv;
+                UV= UV - float2(0.5,0.5);
+                float UVLength = length(UV);
+
+                if(UVLength >0.2 && UVLength < 0.3)
+                {
+                    col = fixed4(1,1,1,1);
+                }
                 return col;
             }
             ENDCG
