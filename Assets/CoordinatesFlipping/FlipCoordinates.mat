@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CircleMaterial
-  m_Shader: {fileID: 4800000, guid: c87ceaf1f51ee492eabb1250808900ff, type: 3}
+  m_Name: FlipCoordinates
+  m_Shader: {fileID: 4800000, guid: d973d9a6a3f244cc698f50fe224924e4, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -56,7 +56,9 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
-    m_Ints: []
+    m_Ints:
+    - _Xmultiplier: -1
+    - _Ymultiplier: -1
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
@@ -68,12 +70,7 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Opacity: 0
     - _Parallax: 0.02
-    - _Radius: 0.402
-    - _RadiusMax: 0.018
-    - _RadiusMin: 0
-    - _SmoothingFactor: 0.0142
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
