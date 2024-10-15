@@ -47,8 +47,15 @@ Shader "Unlit/MovingAShape"
             fixed4 frag (v2f i) : SV_Target
             {
                 fixed4 col = fixed4(0,0,0,1);
-                float2 UV = i.uv;
-                UV= UV - float2(0.5,0.5);
+                float2 uv = i.uv;
+                uv= uv - float2(0.5,0.5);
+                uv.y += _Time.y * 0.3;;
+                uv.y = fmod(uv.y, 1.0);
+                col = fixed4(uv.x,uv.y,0,1);
+                if(uv.x > 0.2 && uv.x <0.35 && uv.y>0.2&& uv.y<0.35)
+                {
+                    col = fixed4(1,1,1,1);
+                }
                 return col;
             }
             ENDCG
