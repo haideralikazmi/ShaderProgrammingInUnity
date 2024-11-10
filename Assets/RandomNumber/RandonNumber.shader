@@ -4,6 +4,9 @@ Shader "Unlit/RandonNumber"
     {
         _MainTex ("Texture", 2D) = "white" {}
         _Color ("Color", Color) = (1,1,1,1)
+        _RandomA ("RandomA", Range(1,250)) = 0
+        _RandomB ("RandomB", Range(1,250))= 0
+        _RandomC ("RandomB", Range(1,250))= 0
     }
     SubShader
     {
@@ -17,11 +20,13 @@ Shader "Unlit/RandonNumber"
             #pragma fragment FragmentFunction
 
             #include "UnityCG.cginc"
-
-
+            
             sampler2D _MainTex;
             float4 _MainTex_ST;
             float4 _Color;
+            float _RandomA;
+            float _RandomB;
+            float _RandomC;
 
             struct MeshData
             {
@@ -37,8 +42,8 @@ Shader "Unlit/RandonNumber"
 
             float RandomNumberGenerator(float2 input)
             {
-                input = frac(input * float2(2233.4,243.1));
-                input+= dot(input, input + 34.23);
+                input = frac(input * float2(_RandomA,_RandomB));
+                input+= dot(input, input + _RandomC);
                 return frac(input.x * input.y);
             }
 

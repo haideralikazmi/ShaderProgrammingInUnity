@@ -60,6 +60,8 @@ Material:
     - _Xmultiplier: -1
     - _Ymultiplier: -1
     m_Floats:
+    - RandomA: 223.5
+    - RandomB: 200.1
     - _BumpScale: 1
     - _Cutoff: 0.5
     - _DetailNormalMapScale: 1
@@ -71,6 +73,9 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _RandomA: 1
+    - _RandomB: 13
+    - _RandomC: 1
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
