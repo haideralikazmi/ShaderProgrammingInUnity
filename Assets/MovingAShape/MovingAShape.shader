@@ -12,14 +12,15 @@ Shader "Unlit/MovingAShape"
         Pass
         {
             CGPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
-            // make fog work
-            #pragma multi_compile_fog
+            #pragma vertex VertexFunction
+            #pragma fragment FragmentFunction
 
             #include "UnityCG.cginc"
 
-            struct appdata
+            sampler2D _MainTex;
+            float4 _MainTex_ST;
+            
+            struct meshData
             {
                 float4 vertex : POSITION;
                 float2 uv : TEXCOORD0;
@@ -31,11 +32,8 @@ Shader "Unlit/MovingAShape"
                 UNITY_FOG_COORDS(1)
                 float4 vertex : SV_POSITION;
             };
-
-            sampler2D _MainTex;
-            float4 _MainTex_ST;
-
-            v2f vert (appdata v)
+            
+            v2f VertexFunction (meshData v)
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
@@ -44,12 +42,12 @@ Shader "Unlit/MovingAShape"
                 return o;
             }
 
-            fixed4 frag (v2f i) : SV_Target
+            fixed4 FragmentFunction (v2f i) : SV_Target
             {
                 fixed4 col = fixed4(0,0,0,1);
                 float2 uv = i.uv;
                 uv= uv - float2(0.5,0.5);
-                uv.y += _Time.y * 0.3;;
+                uv.y += _Time.y * 0.3;
                 uv.y = fmod(uv.y, 1.0);
                 col = fixed4(uv.x,uv.y,0,1);
                 if(uv.x > 0.2 && uv.x <0.35 && uv.y>0.2&& uv.y<0.35)
